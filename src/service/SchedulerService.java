@@ -78,6 +78,9 @@ public class SchedulerService implements ISchedulerService {
         }
     }
 
+    /**
+     * Creates and executes a one-shot action that becomes enabled after the given delay.
+     */
     @Override
     public void scheduleTask(Runnable task, Long delay, TimeUnit timeUnit) {
         this.lock.lock();
@@ -94,6 +97,11 @@ public class SchedulerService implements ISchedulerService {
 
     }
 
+    /**
+     * Creates and executes a periodic action that becomes enabled first after the given initial delay, and
+     * subsequently with the given replay time; that is executions will commence after delay then
+     * delay+replayTime, then delay + 2 * replayTime, and so on.
+     */
     @Override
     public void scheduleRecurringTask(Runnable task, Long delay, Long replayTime, TimeUnit timeUnit) {
         this.lock.lock();
@@ -109,6 +117,10 @@ public class SchedulerService implements ISchedulerService {
         }
     }
 
+    /**
+     * Creates and executes a periodic action that becomes enabled first after the given initial delay, and
+     * subsequently with the given delay between the termination of one execution and the commencement of the next.
+     */
     @Override
     public void scheduleRecurringTaskWithWait(Runnable task, Long delay, Long replayTime, TimeUnit timeUnit) {
         this.lock.lock();
